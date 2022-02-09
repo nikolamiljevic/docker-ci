@@ -1,0 +1,36 @@
+FROM node:alpine
+
+# menjamo usera u 'node' umesto u obicnog default-nog 'root' koji nema potrebne permisije 
+USER node
+
+#  pravimo novi direktorijum i stavljamo ga kao working directory
+RUN mkdir -p /home/node/app
+WORKDIR /home/node/app
+ 
+#  kada kopiramo fajlove setujemo ownership na node usera za sve fajlove da ne bi imali problem sa permisijama kada pokrecemo volume
+#prvo kopiramo package.json fajl da bi videli da li imamo nove dependencije da instaliramo i onda sledece pokrecemo npm install, ako nema nista novo nastavlja dalje sa kopiranjem drugih foldera ne instalira nista
+COPY --chown=node:node ./package.json ./
+
+# instaliramo node_modules 
+RUN npm install
+
+# kopiramo sve ostale fajlove iz lokalnog repoa u kontejner
+COPY --chown=node:node ./ ./
+ 
+CMD ["npm", "start"]
+
+# volume pokrecemo ili u komandi u shellu ili preko docker-compose fajla u zavisnosti kako zelimo da pokrenemo kontejner
+
+
+#  docker build -f Dockerfile.dev -t nikolaeyesee:frontend .
+# docker run -it -p 3000:3000 -v /home/node/app/node_modules -v ~/frontent:/home/node/app nikolaeyesee:latest
+
+
+# # za docker-compose treba ubaciti ovo za volume 
+#     volumes:
+#       - /home/node/app/node_modules
+#       - .:/home/node/app
+
+
+# web:
+    # stdin_open: true

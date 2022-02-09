@@ -1,0 +1,19 @@
+version: '3'
+services:
+  web:
+    build: #ako ovde samo stavimo tacku trazice Dockerfile unutar trenutnog direktorijuma iz kog ce izbildati image i pokrenuti kontejner
+      context: . #ovde preciziramo iz kog direktorijuma zelimo da citamo dockerfile, trenutno je to isti direktorijum gde je i docker-compose
+      dockerfile: Dockerfile.dev #ime dockerfile-a, posto on po defaultu trazi Dockerfile, a nas se zove Dockerfile.dev moramo da naglasimo to ovde
+    ports:
+      - "3000:3000"
+    volumes:
+      - /home/node/app/node_modules # ne zelimo da kopiramo node modules folder koji se nalazi u kontejneru na nas lokalni racunar
+      - .:/home/node/app/ #kopiramo sve sa naseg direktorijuma u kom se trenutno nalazimo sve u app folder u kontejneru
+  tests: #ovim kontejnerom izvrsavamo testove aplikacije
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev 
+    volumes:
+      - /home/node/app/node_modules
+      - .:/home/node/app/ 
+    command: ["npm","run","test"] #u sustini pravimo isti service samo cemo sa ovim 'command' pregaziti inicijalnu komandu iz dockerfile-a i pokrenuti ovu 
