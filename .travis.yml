@@ -3,15 +3,15 @@ services:
   - docker 
 
 before_install:
-  - docker build -t <IME_IMAGE-A> -f Dockerfile.dev
+  - docker build -t nikola/docker-react -f Dockerfile.dev .
 
 script:
-  - docker run -e CI=true <IME_IMAGE-A> npm run test # -- --coverage   === pokrecemo testove
+  - docker run -e CI=true nikola/docker-react npm run test -- --coverage  # pokrecemo testove
 
 deploy: # mozemmo travis ci-u da prosledimo ovaj parametar koji mu govori kog providera ce koristiti i u zavisnosti od toga koji set instrukcija ce zadati za deploy
   provider: elascticbeanstalk
   region: "us-west-2"
-  app: "EB ime aplikacije" # ovo je ime aplikacije koje smo stavili na elasticbeanstalku na aws
+  app: "docker-ci" # ovo je ime aplikacije koje smo stavili na elasticbeanstalku na aws
   env: "EB-app-env" # ovo se dobija kad napravimo aplikaciju na EB na aws-u
   bucket_name: "Ime s3 bucketa" #kada ci radi deploy on uzme sve nase fajlove sa git-a, zipuje ih i spakuje ih na s3 bucket na aws
   bucket_path: "EB ime aplikacije" # s3 key, u sustini unutar bucketa nam treba ime koje je isto kao ime aplikacije jer je tu ci iskpirao folder sa gita
