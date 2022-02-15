@@ -18,10 +18,10 @@ deploy: # mozemmo travis ci-u da prosledimo ovaj parametar koji mu govori kog pr
   on:
     branch: master # deploy se radi samo kada pusujemo na master granu, ostale ne
 
-#treba na aws da napravimo IAM usera koji ce imati sve dozvole za elasticbeanstalk preko koga radimo deploy 
-#kada ga napravimo dobicemo "access key id" i "secret access key" koje treba da iskoristimo ovde za pristup
-# Ove kredencijale bi trebali da stavimo u Travis ci-u, kada udjemo u repo imamo sekciju 'Environment variables' stavljamo ih kao key=>kavlue parove i iscitavamo ih ovde
-access_key_id: $AWS_ACCESS_KEY
-secret_access_key: $AWS_SECRET_KEY
+  #treba na aws da napravimo IAM usera koji ce imati sve dozvole za elasticbeanstalk preko koga radimo deploy 
+  #kada ga napravimo dobicemo "access key id" i "secret access key" koje treba da iskoristimo ovde za pristup
+  # Ove kredencijale bi trebali da stavimo u Travis ci-u, kada udjemo u repo imamo sekciju 'Environment variables' stavljamo ih kao key=>kavlue parove i iscitavamo ih ovde
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
 
 # Docker-env.eba-ncbcbkdp.eu-west-1.elasticbeanstalk.com
