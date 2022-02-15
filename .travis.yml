@@ -10,11 +10,11 @@ script:
 
 deploy: # mozemmo travis ci-u da prosledimo ovaj parametar koji mu govori kog providera ce koristiti i u zavisnosti od toga koji set instrukcija ce zadati za deploy
   provider: elascticbeanstalk
-  region: "us-west-2"
-  app: "docker-ci" # ovo je ime aplikacije koje smo stavili na elasticbeanstalku na aws
-  env: "EB-app-env" # ovo se dobija kad napravimo aplikaciju na EB na aws-u
-  bucket_name: "Ime s3 bucketa" #kada ci radi deploy on uzme sve nase fajlove sa git-a, zipuje ih i spakuje ih na s3 bucket na aws
-  bucket_path: "EB ime aplikacije" # s3 key, u sustini unutar bucketa nam treba ime koje je isto kao ime aplikacije jer je tu ci iskpirao folder sa gita
+  region: "eu-west-1"
+  app: "docker" # ovo je ime aplikacije koje smo stavili na elasticbeanstalku na aws
+  env: "Docker-env" # ovo se dobija (environment) kad napravimo aplikaciju na EB na aws-u
+  bucket_name: "elasticbeanstalk-eu-west-1-408074551014" #kada ci radi deploy on uzme sve nase fajlove sa git-a, zipuje ih i spakuje ih na s3 bucket na aws (kada napravimo EB automatski se generise s3 instanca)
+  bucket_path: "docker" # s3 key, u sustini unutar bucketa nam treba ime koje je isto kao ime EB aplikacije jer je tu ci iskpirao folder sa gita
   on:
     branch: master # deploy se radi samo kada pusujemo na master granu, ostale ne
 
@@ -23,3 +23,5 @@ deploy: # mozemmo travis ci-u da prosledimo ovaj parametar koji mu govori kog pr
 # Ove kredencijale bi trebali da stavimo u Travis ci-u, kada udjemo u repo imamo sekciju 'Environment variables' stavljamo ih kao key=>kavlue parove i iscitavamo ih ovde
 access_key_id: $AWS_ACCESS_KEY
 secret_access_key: $AWS_SECRET_KEY
+
+# Docker-env.eba-ncbcbkdp.eu-west-1.elasticbeanstalk.com
